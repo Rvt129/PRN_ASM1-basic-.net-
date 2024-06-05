@@ -1,0 +1,24 @@
+﻿<Window x:Class="Asm1.Presentation.Customer.CustomerPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Asm1.Presentation.Customer"
+        mc:Ignorable="d"
+        Title="CustomerPage" Height="450" Width="800">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Customer/indirect-booking-or-direct-booking.jpg" TileMode="None"/>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="216*"/>
+            <ColumnDefinition Width="570*"/>
+            <ColumnDefinition Width="9*"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="Profile" Content="Profile" HorizontalAlignment="Center" VerticalAlignment="Top" Width="216" Height="58" Background="#FF0F3D6A" FontFamily="Perpetua Titling MT" FontSize="18" Click="Profile_Click" Foreground="White" FontWeight="Bold"/>
+        <Button Content="BOOKING HISTORY" HorizontalAlignment="Center" VerticalAlignment="Top" Width="216" Height="58" Background="#FF243D56" FontFamily="Perpetua Titling MT" FontSize="18" Margin="0,58,0,0" Click="History_click" Foreground="#FFFFEEEE" FontWeight="Bold"/>
+        <Button x:Name="logout" Content="Log out" HorizontalAlignment="Left" VerticalAlignment="Top" Width="93" Height="50" Background="#FFE4EDBA" FontFamily="Rockwell" FontSize="18" Grid.Column="1" Margin="467,27,0,0" Click="logout_Click" Foreground="#FF214517"/>
+
+    </Grid>
+</Window>

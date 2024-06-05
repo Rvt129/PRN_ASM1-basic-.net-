@@ -1,0 +1,108 @@
+﻿<Window x:Class="Asm1.Presentation.Admin.RoomList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Asm1.Presentation.Admin"
+        mc:Ignorable="d"
+        Title="RoomList" Height="450" Width="800">
+    <Grid RenderTransformOrigin="0.509,0.681">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="11*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="0*"/>
+                </Grid.ColumnDefinitions>
+                <ListView Margin="5,84,5,0" Name="lvi">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="ID" DisplayMemberBinding="{Binding RoomId}" Width="50"/>
+                            <GridViewColumn Header="Room Number" DisplayMemberBinding="{Binding RoomNumber}" Width="70"/>
+                    <GridViewColumn Header="Detail" DisplayMemberBinding="{Binding RoomDetailDescription}" Width="200"/>
+                    <GridViewColumn Header="Capacity" DisplayMemberBinding="{Binding RoomMaxCapacity}" Width="70"/>
+                    <GridViewColumn Header="Type ID" DisplayMemberBinding="{Binding RoomTypeId}" Width="70"/>
+                    <GridViewColumn Header="Price/Day" DisplayMemberBinding="{Binding RoomPricePerDay}" Width="150"/>
+                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding RoomStatus}" Width="70"/>
+                            <GridViewColumn Width="130">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button x:Name="edit" Content="Edit" Margin="5" CommandParameter="{Binding}" Click="Update_Room"/>
+                                            <Button x:Name="delete" Content="Delete" Margin="5" CommandParameter="{Binding}" Click="Delete_Room"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <TextBox Name="search" HorizontalAlignment="Left" Height="30" Margin="90,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="281" Background="#FFEEEEEE" FontSize="16"/>
+                <Button x:Name="search_button" Content="Search" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Nirmala UI" Height="30" Width="67" Click="Search_button_Click"/>
+                <Button x:Name="create" Content="Create Customer" HorizontalAlignment="Left" Margin="663,10,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Nirmala UI" Height="30" Width="117" Background="#FF166973" Foreground="#FFF8F6F6" FontWeight="Bold" Click="Create_Click"/>
+                <Button x:Name="back" Content="Back" HorizontalAlignment="Left" Margin="5,10,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Nirmala UI" Height="30" Width="46" Background="#FF162C73" Foreground="#FFF8F6F6" FontWeight="Bold" Click="Back_click"/>
+
+            
+        <!-- Popup for Update/Create Room -->
+        <Popup x:Name="PopupUpdate_Room" Width="500" Height="400" Placement="Center" StaysOpen="False" OpacityMask="#FFC5D4CF">
+            <Grid Height="420" VerticalAlignment="Top" Background="#FF7EC5C5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="117*"/>
+                    <RowDefinition Height="100*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Margin="74,65,82,28" Grid.RowSpan="2">
+                    <TextBlock Text="Room Number:" FontWeight="Bold"/>
+                    <TextBox x:Name="RoomNumber" Text="{Binding RoomNumber}" Margin="0,0,0,10"/>
+
+                    <TextBlock Text="Room Detail:" FontWeight="Bold"/>
+                    <TextBox x:Name="RoomDetail" Text="{Binding RoomDetailDescription}" Margin="0,0,0,10" />
+
+                    <TextBlock Text="Room Capacity:" FontWeight="Bold"/>
+                    <TextBox x:Name="RoomCapacity" Text="{Binding RoomMaxCapacity}" Margin="0,0,0,10" />
+
+                    <TextBlock Text="Room Type :" FontWeight="Bold"/>
+                    <ComboBox x:Name="RoomTypeId" SelectedItem="{Binding RoomTypeId}" Margin="0,0,0,10" />
+
+                    <TextBlock Text="Room Price/Day:" FontWeight="Bold"/>
+                    <TextBox x:Name="RoomPrice" Text="{Binding RoomPricePerDay}" Margin="0,0,0,10" />
+                    <TextBlock Text="Room Status:" FontWeight="Bold"/>
+                    <ComboBox x:Name="RoomStatus" SelectedValuePath="Content" Margin="0,0,0,10">
+                        <ComboBoxItem Content="1" />
+                        <ComboBoxItem Content="2" />
+                    </ComboBox>
+                    <Button Content="Save" Click="SaveUpdateRoomButton_Click" Margin="0,10,0,0" HorizontalAlignment="Right" Width="87" Height="29" Background="#FF29725F" FontFamily="Stencil" Foreground="White" FontSize="16"/>
+                </StackPanel>
+                <Label Content="UPDATE ROOM" HorizontalAlignment="Center" Margin="0,34,0,0" VerticalAlignment="Top" Background="#FF753131" Foreground="White" FontWeight="Bold"/>
+            </Grid>
+        </Popup>
+        <!-- Popup for Update/Create Room -->
+        <Popup x:Name="PopupCreate_Room" Width="500" Height="400" Placement="Center" StaysOpen="False" OpacityMask="#FFD2EBDF">
+            <Grid Height="392" VerticalAlignment="Top" Background="#FF95DCD9" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="117*"/>
+                    <RowDefinition Height="100*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Margin="74,65,82,28" Grid.RowSpan="2">
+                    <TextBlock Text="Room Number:" FontWeight="Bold"/>
+                    <TextBox x:Name="RoomNum" Margin="0,0,0,10"/>
+
+                    <TextBlock Text="Room Detail:" FontWeight="Bold"/>
+                    <TextBox x:Name="RoomDe" Margin="0,0,0,10"/>
+
+                    <TextBlock Text="Room Capacity:" FontWeight="Bold"/>
+                    <TextBox x:Name="RoomCap" Margin="0,0,0,10"/>
+
+                    <TextBlock Text="Room Type:" FontWeight="Bold"/>
+                    <ComboBox x:Name="RoomTy" Margin="0,0,0,10" />
+
+                    <TextBlock Text="Room Price/Day:" FontWeight="Bold"/>
+                    <TextBox x:Name="RoomPri" Margin="0,0,0,10" />
+
+                    <Button Content="Save" Click="SaveCreateRoomButton_Click" Margin="0,10,0,0" HorizontalAlignment="Right" Width="87" Height="29" Background="#FF29725F" FontFamily="Stencil" Foreground="White" FontSize="16"/>
+                </StackPanel>
+                <Label Content="CREATE ROOM" HorizontalAlignment="Center" Margin="0,34,0,0" VerticalAlignment="Top" Background="#FF753131" Foreground="White" FontWeight="Bold"/>
+            </Grid>
+        </Popup>
+
+    </Grid>
+</Window>

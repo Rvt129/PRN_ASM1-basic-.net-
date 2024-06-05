@@ -1,0 +1,101 @@
+﻿<Window x:Class="Asm1.Presentation.Admin.CustomerList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Asm1.Presentation.Admin"
+        mc:Ignorable="d"
+        Title="CustomerList" Height="450" Width="819">
+    <Grid RenderTransformOrigin="0.509,0.681">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="11*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0*"/>
+        </Grid.ColumnDefinitions>
+        <ListView Margin="5,84,5,0" x:Name="lvi">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding CustomerId}" Width="30"/>
+                    <GridViewColumn Header="FullName" DisplayMemberBinding="{Binding CustomerFullName}" Width="150"/>
+                    <GridViewColumn Header="Tele" DisplayMemberBinding="{Binding Telephone}" Width="100"/>
+                    <GridViewColumn Header="Email" DisplayMemberBinding="{Binding EmailAddress}" Width="230"/>
+                    <GridViewColumn Header="Birthday" DisplayMemberBinding="{Binding CustomerBirthday, StringFormat='dd/MM/yyyy'}" Width="100"/>
+                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding CustomerStatus}" Width="70"/>
+                    <GridViewColumn Width="130">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button x:Name="edit" Content="Edit" Margin="5" CommandParameter="{Binding}" Click="Update_Customer"/>
+                                    <Button x:Name="delete" Content="Delete" Margin="5" CommandParameter="{Binding}" Click="Delete_Customer"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <TextBox x:Name="search" HorizontalAlignment="Left" Height="30" Margin="90,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="281" Background="#FFEEEEEE" FontSize="16"/>
+        <Button x:Name="search_button" Content="Search" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Nirmala UI" Height="30" Width="67" Click="Search_button_Click"/>
+        <Button x:Name="create" Content="Create Customer" HorizontalAlignment="Left" Margin="663,10,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Nirmala UI" Height="30" Width="117" Background="#FF166973" Foreground="#FFF8F6F6" FontWeight="Bold" Click="Create_Click"/>
+        <Button x:Name="back" Content="Back" HorizontalAlignment="Left" Margin="5,10,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Nirmala UI" Height="30" Width="46" Background="#FF162C73" Foreground="#FFF8F6F6" FontWeight="Bold" Click="Back_click"/>
+
+       
+        <Popup x:Name="Popup_update" Width="500" Height="400" Placement="Center" StaysOpen="False">
+            <Grid Height="420" VerticalAlignment="Top" Background="#FF8BE5E8">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="117*"/>
+                    <RowDefinition Height="100*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Margin="74,65,82,28" Grid.RowSpan="2">
+                    <TextBlock Text="Full Name:" FontWeight="Bold"/>
+                    <TextBox x:Name="CustomerFullName" Text="{Binding CustomerFullName}" Margin="0,0,0,10"/>
+
+                    <TextBlock Text="Email:" FontWeight="Bold"/>
+                    <TextBox x:Name="EmailAddress"  Text="{Binding EmailAddress}" Margin="0,0,0,10"/>
+
+                    <TextBlock Text="Telephone:" FontWeight="Bold"/>
+                    <TextBox x:Name="Telephone" Text="{Binding Telephone}" Margin="0,0,0,10" PreviewTextInput="PrieviewTeleEdit"/>
+
+                    <TextBlock Text="Birthday:" FontWeight="Bold"/>
+                    <DatePicker x:Name="CustomerBirthday" SelectedDate="{Binding CustomerBirthday}" Margin="0,0,0,10"/>
+
+                    <TextBlock Text="Password:" FontWeight="Bold"/>
+                    <TextBox x:Name="Password" Text="{Binding Password}" Margin="0,0,0,10"/>
+                    
+                    <TextBlock Text="Status" FontWeight="Bold"/>
+                    <ComboBox x:Name="Status" SelectedValuePath="Content" Margin="0,0,0,10">
+                        <ComboBoxItem Content="1" />
+                        <ComboBoxItem Content="2" />
+                    </ComboBox>
+                    <Button Content="Save" Click="SaveButton_Click" Margin="0,10,0,0" HorizontalAlignment="Right" Width="87" Height="29" Background="#FF29725F" FontFamily="Stencil" Foreground="White" FontSize="16"/>
+                </StackPanel>
+                <Label Content="UPDATE CUSTOMER" HorizontalAlignment="Center" Margin="0,34,0,0" VerticalAlignment="Top" Background="#FF753131" Foreground="White" FontWeight="Bold"/>
+            </Grid>
+        </Popup>
+        <Popup x:Name="Popup_create" Width="500" Height="400" Placement="Center" StaysOpen="False">
+            <Grid Height="392" VerticalAlignment="Top"  Background="#FF8BE5E8">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="117*"/>
+                    <RowDefinition Height="100*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Margin="74,65,82,28" Grid.RowSpan="2">
+                    <TextBlock Text="Full Name:" FontWeight="Bold"/>
+                    <TextBox x:Name="name" Margin="0,0,0,10"/>
+                    <TextBlock Text="Email:" FontWeight="Bold"/>
+                    <TextBox x:Name="email"  Margin="0,0,0,10"/>
+
+                    <TextBlock Text="Telephone:" FontWeight="Bold"/>
+                    <TextBox x:Name="tele" Margin="0,0,0,10" PreviewTextInput="PreviewTeleAdd"/>
+
+                    <TextBlock Text="Birthday:" FontWeight="Bold"/>
+                    <DatePicker x:Name="birthday" Margin="0,0,0,10"/>
+
+                    <Button Content="Save" Click="SaveButtonCreate_Click" Margin="0,10,0,0" HorizontalAlignment="Right" Width="87" Height="29" Background="#FF29725F" FontFamily="Stencil" Foreground="White" FontSize="16"/>
+                </StackPanel>
+                <Label Content="CREATE CUSTOMER" HorizontalAlignment="Center" Margin="0,34,0,0" VerticalAlignment="Top" Background="#FF753131" Foreground="White" FontWeight="Bold"/>
+            </Grid>
+        </Popup>
+    </Grid>
+</Window>

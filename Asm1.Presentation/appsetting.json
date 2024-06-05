@@ -1,0 +1,12 @@
+{
+  "ConnectionStrings": {
+    "DBDefault": "Data Source=localhost;Database=FUMiniHotelManagement;User ID=sa;Password=12345;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False"
+  },
+
+  "AdminAccount": {
+    "Email": "admin@FUMiniHotelSystem.com",
+    "Password": "@@abc123@@"
+
+  }
+
+}
