@@ -35,7 +35,7 @@ namespace Asm1.Presentation.Admin
         }
         private IEnumerable<Data.Entities.Customer> CusList()
         {
-            customerService = CustomerService.Instance;
+            customerService = CustomerService.GetInstance();
             return customerService.AllCustomerList();
         }
 
@@ -58,11 +58,7 @@ namespace Asm1.Presentation.Admin
                     };
 
                     Popup_update.DataContext = tempCustomer;
-                    if (_selectedCustomer.CustomerStatus == 0)
-                    {
-                        Status.SelectedValue = null;
-                    } else if (_selectedCustomer.CustomerStatus == 1) { Status.SelectedValue = 1; }
-                    else Status.SelectedValue = 2;
+                    
                     Popup_update.IsOpen = true;
                 }
             }
@@ -77,14 +73,8 @@ namespace Asm1.Presentation.Admin
             string telephone = Telephone.Text;
             DateTime? birthday = CustomerBirthday.SelectedDate;
             string password = Password.Text;
-            byte status = 0;
-            if (Status.SelectedValue != null)
-            {
-                if (byte.TryParse(Status.SelectedValue.ToString(), out byte parsedStatus))
-                {
-                    status = parsedStatus;
-                }
-            } else MessageBox.Show("You have to select the option");
+          
+            
                 bool isValid = true;
 
             if (string.IsNullOrWhiteSpace(fullName) || string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(telephone) || !birthday.HasValue || string.IsNullOrWhiteSpace(password))
@@ -108,18 +98,18 @@ namespace Asm1.Presentation.Admin
                 tempCustomer.Telephone = telephone;
                 tempCustomer.CustomerBirthday = birthday.Value;
                 tempCustomer.Password = password;
-                tempCustomer.CustomerStatus = status;
+                
                 // Cập nhật đối tượng _selectedCustomer với dữ liệu từ đối tượng tạm thời
                 _selectedCustomer.CustomerFullName = tempCustomer.CustomerFullName;
                 _selectedCustomer.EmailAddress = tempCustomer.EmailAddress;
                 _selectedCustomer.Telephone = tempCustomer.Telephone;
                 _selectedCustomer.CustomerBirthday = tempCustomer.CustomerBirthday;
                 _selectedCustomer.Password = tempCustomer.Password;
-                _selectedCustomer.CustomerStatus=tempCustomer.CustomerStatus;
+                
                 
                 Popup_update.IsOpen = false;
 
-                customerService = CustomerService.Instance;
+                customerService = CustomerService.GetInstance();
                 customerService.UpdateCustomer(_selectedCustomer);
 
                 DataContext = null;
@@ -149,7 +139,7 @@ namespace Asm1.Presentation.Admin
 
         private void DeleteCustomer(int customerId)
         {
-            customerService = CustomerService.Instance;
+            customerService = CustomerService.GetInstance();
             customerService.DeleteCus(customerId);
 
             lvi.ItemsSource=CusList();
@@ -159,16 +149,16 @@ namespace Asm1.Presentation.Admin
         private void Search_button_Click(object sender, RoutedEventArgs e)
         {
 
-
             if(!search.Text.IsNullOrEmpty())
             {
                 lvi.ItemsSource = SearchCusList(search.Text);
 
             }
+            else if (search.Text == "") lvi.ItemsSource = lvi.ItemsSource;
         }
         private IEnumerable<Data.Entities.Customer> SearchCusList(String name)
         {
-            customerService = CustomerService.Instance;
+            customerService = CustomerService.GetInstance();
             return customerService.SeacrhCusByName(name);
         }
         private void Create_Click(object sender, RoutedEventArgs e)

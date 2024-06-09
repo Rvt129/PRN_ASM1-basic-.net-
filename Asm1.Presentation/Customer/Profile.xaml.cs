@@ -110,7 +110,7 @@ namespace Asm1.Presentation.Customer
                 
                 Popup_update.IsOpen = false;
 
-                customerService = CustomerService.Instance;
+                customerService = CustomerService.GetInstance();
                 customerService.UpdateCustomer(_customer);
 
                 DataContext = null;

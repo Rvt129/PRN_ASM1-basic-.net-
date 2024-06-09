@@ -9,22 +9,26 @@ namespace Asm1.Data.Repository
 {
     public sealed class BookingDAO : IBooking
     {
-        private static readonly BookingDAO instance = new BookingDAO();
-        private static FuminiHotelManagementContext _context;
+      
+        private  FuminiHotelManagementContext _context;
 
         private BookingDAO()
         {
-            _context = new FuminiHotelManagementContext();
         }
-
-        public static BookingDAO Instance
+        private static BookingDAO instance;
+  
+        public static BookingDAO GetInstance()
         {
-            get
+            if (instance == null)
             {
-                return instance;
+                instance = new BookingDAO();
             }
+            return instance;
         }
-
+        public BookingDAO(FuminiHotelManagementContext context)
+        {
+            this._context = context;
+        }
 
         public IEnumerable<BookingReservation> bookingReservations(int id)
         {

@@ -36,7 +36,7 @@ namespace Asm1.Presentation.Customer
         }
         public IEnumerable<BookingReservation> BookingReservations()
         {
-            _bookingService = BookingService.Instance;
+            _bookingService = BookingService.GetInstance();
             return _bookingService.GetReservationById(_customer.CustomerId);
         }
 
@@ -59,7 +59,7 @@ namespace Asm1.Presentation.Customer
 
         public void SearchbookingReservations(DateTime? DateSearch)
         {
-            _bookingService = BookingService.Instance;
+            _bookingService = BookingService.GetInstance();
             var reservations = _bookingService.GetReservationByDate(DateSearch);
             _reservations.Clear();
             foreach (var reservation in reservations)

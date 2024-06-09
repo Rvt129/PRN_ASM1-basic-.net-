@@ -30,7 +30,7 @@ namespace Asm1.Presentation.Admin
         public Reports()
         {
             InitializeComponent();
-            bookingService = BookingService.Instance;
+            bookingService = BookingService.GetInstance();
             lvi.ItemsSource = BookingReport();
         }
 

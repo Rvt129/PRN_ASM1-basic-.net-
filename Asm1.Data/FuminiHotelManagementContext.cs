@@ -33,7 +33,7 @@ public partial class FuminiHotelManagementContext : DbContext
     {
         IConfiguration configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("G:\\fu\\kif 5\\prrn\\Asm1\\Asm1.Presentation\\appsetting.json", true, true).Build();
+                .AddJsonFile("G:\\fu\\kif 5\\prrn\\VoNgocBaoThuWPF\\Asm1.Presentation\\appsetting.json", true, true).Build();
         string result = configuration["ConnectionStrings:DBDefault"];  
         return result;
     }

@@ -29,12 +29,12 @@ namespace Asm1.Presentation.Admin
 
         private IEnumerable<RoomInformation> AllRoom()
         {
-            roomService = RoomService.Instance;
+            roomService = RoomService.GetInstance();
             return roomService.GetAllRoom();
         }
         private IEnumerable<RoomType> AllType()
         {
-            roomService = RoomService.Instance;
+            roomService = RoomService.GetInstance();
             return roomService.GetAllType();
         }
 
@@ -70,12 +70,7 @@ namespace Asm1.Presentation.Admin
                         var selectedType = roomTypes.FirstOrDefault(rt => rt.RoomTypeId == tempRoom.RoomTypeId);
                         RoomTypeId.SelectedItem = selectedType;
                     }
-                    if (selectedRoom.RoomStatus == 0)
-                    {
-                        RoomStatus.SelectedItem = null;
-                    }
-                    else if (selectedRoom.RoomStatus == 1) { RoomStatus.SelectedValue = 1; }
-                    else RoomStatus.SelectedValue = 2;
+                   
                     PopupUpdate_Room.IsOpen = true;
                 }
             }
@@ -100,7 +95,7 @@ namespace Asm1.Presentation.Admin
 
         private void DeleteRoom(int roomId)
         {
-            roomService = RoomService.Instance;
+            roomService = RoomService.GetInstance() ;
             roomService.DeleteRoom(roomId);
             lvi.ItemsSource=AllRoom();
         }
@@ -111,11 +106,12 @@ namespace Asm1.Presentation.Admin
             {
                 lvi.ItemsSource = SearchRoomList(search.Text);
             }
+            else if (search.Text == "") lvi.ItemsSource = lvi.ItemsSource;
         }
 
         private IEnumerable<RoomInformation> SearchRoomList(string roomdetail)
         {
-            roomService = RoomService.Instance;
+            roomService = RoomService.GetInstance();
             return roomService.SearchRoomByRoomDetail(roomdetail);
         }
 
@@ -138,36 +134,26 @@ namespace Asm1.Presentation.Admin
             var selectedItem = (RoomType)RoomTypeId.SelectedValue;
             int roomTypeId = selectedItem.RoomTypeId;
             decimal roomPrice = decimal.Parse(RoomPrice.Text);
-            byte status = 0;
-            if (RoomStatus.SelectedValue != null)
-            {
-
-                if (byte.TryParse(RoomStatus.SelectedValue.ToString(), out byte parsedStatus))
-                {
-                    status = parsedStatus;
-                }
-            }
-            else MessageBox.Show("You have to choose option");
-
+            
 
             tempRoom.RoomNumber = roomNumber;
             tempRoom.RoomDetailDescription = roomDetail;
             tempRoom.RoomMaxCapacity = roomCapacity;
             tempRoom.RoomTypeId = roomTypeId;
             tempRoom.RoomPricePerDay = roomPrice;
-            tempRoom.RoomStatus = status;
+        
 
             selectedRoom.RoomNumber = tempRoom.RoomNumber;
             selectedRoom.RoomDetailDescription=tempRoom.RoomDetailDescription;
             selectedRoom.RoomMaxCapacity = tempRoom.RoomMaxCapacity;
             selectedRoom.RoomTypeId = tempRoom.RoomTypeId;
             selectedRoom.RoomPricePerDay = tempRoom.RoomPricePerDay;
-            selectedRoom.RoomStatus = tempRoom.RoomStatus;
+           
 
           
             PopupUpdate_Room.IsOpen = false;
 
-            roomService = RoomService.Instance;
+            roomService = RoomService.GetInstance();
             roomService.UpdateRoom(selectedRoom);
 
    
@@ -191,7 +177,7 @@ namespace Asm1.Presentation.Admin
                     RoomPricePerDay = decimal.Parse(RoomPri.Text),
                     RoomStatus = 1 
                 };
-                roomService = RoomService.Instance;
+                roomService = RoomService.GetInstance();
                 roomService.CreateRoom(room);
                 lvi.ItemsSource = AllRoom();
                 PopupCreate_Room.IsOpen = false;

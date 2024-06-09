@@ -10,20 +10,21 @@ namespace Asm1.Bussiness
 {
     public sealed class BookingService
     {
-        private static readonly BookingService instance = new BookingService();
+    
         private BookingDAO bookingDAO;
-
+        private static BookingService instance;
         private BookingService()
         {
-            bookingDAO = BookingDAO.Instance;
+            bookingDAO = BookingDAO.GetInstance();
         }
 
-        public static BookingService Instance
+        public static BookingService GetInstance()
         {
-            get
+            if (instance == null)
             {
-                return instance;
+                instance = new BookingService();
             }
+            return instance;
         }
 
         public IEnumerable<BookingDetail> GetBookingReport()

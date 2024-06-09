@@ -11,19 +11,22 @@ namespace Asm1.Bussiness
     public sealed class CustomerService
     {
         private CustomerDAO customerDAO ;
-        private static readonly CustomerService instance = new CustomerService();
+        private static CustomerService instance ;
 
         public CustomerService()
         {
-            customerDAO = CustomerDAO.Instance;
+            customerDAO = CustomerDAO.GetInstance();
         }
-        public static CustomerService Instance
+       
+        public static CustomerService GetInstance()
         {
-            get
+            if (instance == null)
             {
-                return instance;
+                instance = new CustomerService();
             }
+            return instance;
         }
+
         public IEnumerable<Customer> AllCustomerList()
         {
             return customerDAO.GetAll();

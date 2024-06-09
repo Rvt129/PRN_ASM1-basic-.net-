@@ -11,19 +11,23 @@ namespace Asm1.Bussiness
     public class RoomService
     {
         private RoomDAO roomDAO;
-        private static readonly RoomService instance = new RoomService();
+        private static RoomService instance ;
 
         public RoomService()
         {
-            roomDAO = RoomDAO.Instance;
+            roomDAO = RoomDAO.GetInstance();
         }
-        public static RoomService Instance
+       
+
+        public static RoomService GetInstance()
         {
-            get
+            if (instance == null)
             {
-                return instance;
+                instance = new RoomService();
             }
+            return instance;
         }
+
         public void CreateRoom(RoomInformation room)
         {
             roomDAO.AddRoom(room);

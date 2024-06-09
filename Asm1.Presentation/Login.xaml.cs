@@ -25,7 +25,7 @@ namespace Asm1.Presentation
     public partial class Login : Window
     {
         private LoginService _service;
-        private string configFilePath = "G:\\fu\\kif 5\\prrn\\Asm1\\Asm1.Presentation\\appsetting.json";
+        private string configFilePath = "G:\\fu\\kif 5\\prrn\\VoNgocBaoThuWPF\\Asm1.Presentation\\appsetting.json";
         private string adminEmail;
         private string adminPassword;
         
@@ -66,7 +66,7 @@ namespace Asm1.Presentation
             else
             {
      
-                _service = LoginService.Instance;
+                _service = LoginService.GetInstance();
                 if(_service.LoginUser(emailuser, passworduser))
                 {
                     Data.Entities.Customer customer = _service.User(emailuser, passworduser);

@@ -9,21 +9,23 @@ namespace Asm1.Data.Repository
 {
     public class RoomDAO : IRoom
     {
-        FuminiHotelManagementContext context;
-        private static readonly RoomDAO instance = new RoomDAO();
+        private FuminiHotelManagementContext context;
 
         public RoomDAO()
         {
         }
-  
-        public static RoomDAO Instance
-        {
-            get
-            {
-                return instance;
-            }
-        }
+ 
+        private static RoomDAO instance;
 
+        public static RoomDAO GetInstance()
+        {
+            if (instance == null)
+            {
+                instance = new RoomDAO();
+            }
+            return instance;
+        }
+       
         public RoomDAO(FuminiHotelManagementContext _context)
         {
             this.context = _context;
@@ -39,7 +41,7 @@ namespace Asm1.Data.Repository
         public IEnumerable<RoomInformation> GetAllRoom()
         {
             context = new();
-            return context.RoomInformations.Where(r => r.RoomStatus != 0).ToList();
+            return context.RoomInformations.Where(r => r.RoomStatus != 2).ToList();
         }
 
         public IEnumerable<RoomInformation> GetAllRoomsByName(String detail)
@@ -54,7 +56,7 @@ namespace Asm1.Data.Repository
             var roomToRemove = context.RoomInformations.FirstOrDefault(r => r.RoomId == Roomid);
             if (roomToRemove != null)
             {
-                roomToRemove.RoomStatus = 0;
+                roomToRemove.RoomStatus = 2;
                 context.SaveChanges();
             }
 

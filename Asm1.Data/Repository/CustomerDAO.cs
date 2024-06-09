@@ -11,16 +11,18 @@ namespace Asm1.Data.Repository
     public sealed class CustomerDAO : ICustomer
     {
         private  FuminiHotelManagementContext _context;
-        private static readonly CustomerDAO instance = new CustomerDAO();
-        public CustomerDAO()
+       
+        private CustomerDAO()
         {
         }
-        public static CustomerDAO Instance
+        private static CustomerDAO instance;
+        public static CustomerDAO GetInstance()
         {
-            get
+            if(instance == null)
             {
-                return instance;
+                 instance = new CustomerDAO();
             }
+            return instance;
         }
 
         public CustomerDAO(FuminiHotelManagementContext context)
@@ -42,7 +44,7 @@ namespace Asm1.Data.Repository
             var CusToRemove = _context.Customers.FirstOrDefault(c => c.CustomerId == id);
             if (CusToRemove != null)
             {
-                CusToRemove.CustomerStatus = 0;
+                CusToRemove.CustomerStatus = 2;
                 _context.SaveChanges();
             }
 
@@ -51,13 +53,13 @@ namespace Asm1.Data.Repository
         public IEnumerable<Customer> GetAll()
         {
             _context = new();
-            return _context.Customers.Where(c => c.CustomerStatus != 0).ToList();
+            return _context.Customers.Where(c => c.CustomerStatus != 2).ToList();
         }
 
         public Customer GetCustomerByMailNPass(string email, string password)
         {
             _context =new FuminiHotelManagementContext();
-            return _context.Set<Customer>().Where(a => a.Password == password && a.EmailAddress == email).FirstOrDefault();
+            return _context.Set<Customer>().Where(a => a.Password == password && a.EmailAddress == email && a.CustomerStatus!= 2).FirstOrDefault();
         }
 
         public IEnumerable<Customer> GetCustomerByName(string name)

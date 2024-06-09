@@ -64,11 +64,7 @@
                     <TextBlock Text="Password:" FontWeight="Bold"/>
                     <TextBox x:Name="Password" Text="{Binding Password}" Margin="0,0,0,10"/>
                     
-                    <TextBlock Text="Status" FontWeight="Bold"/>
-                    <ComboBox x:Name="Status" SelectedValuePath="Content" Margin="0,0,0,10">
-                        <ComboBoxItem Content="1" />
-                        <ComboBoxItem Content="2" />
-                    </ComboBox>
+                   
                     <Button Content="Save" Click="SaveButton_Click" Margin="0,10,0,0" HorizontalAlignment="Right" Width="87" Height="29" Background="#FF29725F" FontFamily="Stencil" Foreground="White" FontSize="16"/>
                 </StackPanel>
                 <Label Content="UPDATE CUSTOMER" HorizontalAlignment="Center" Margin="0,34,0,0" VerticalAlignment="Top" Background="#FF753131" Foreground="White" FontWeight="Bold"/>

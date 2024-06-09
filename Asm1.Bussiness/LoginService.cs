@@ -11,19 +11,23 @@ namespace Asm1.Bussiness
     public sealed class LoginService
     {
         private CustomerDAO customerDAO;
-        private static readonly LoginService instance = new LoginService();
+        private static LoginService instance;
 
         public LoginService()
         {
-            customerDAO = CustomerDAO.Instance;
+            customerDAO = CustomerDAO.GetInstance();
         }
-        public static LoginService Instance
+     
+ 
+        public static LoginService GetInstance()
         {
-            get
+            if (instance == null)
             {
-                return instance;
+                instance = new LoginService();
             }
+            return instance;
         }
+
         public bool LoginUser(string emailuser, string passworduser)
         {
             Customer customer=customerDAO.GetCustomerByMailNPass(emailuser, passworduser);
